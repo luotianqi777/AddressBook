@@ -5,6 +5,8 @@ MouseMoveWidget::MouseMoveWidget(QWidget *parent) : QWidget(parent)
 {
     // 去掉标题栏
     this->setWindowFlag(Qt::FramelessWindowHint);
+    // 模态对话框
+    setWindowFlag(Qt::Dialog);
 }
 
 void MouseMoveWidget::mousePressEvent(QMouseEvent *event)
