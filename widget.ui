@@ -107,7 +107,7 @@
                <item>
                 <widget class="QLabel" name="label">
                  <property name="text">
-                  <string>Name:</string>
+                  <string>姓名：</string>
                  </property>
                 </widget>
                </item>
@@ -129,7 +129,7 @@
                <item>
                 <widget class="QLabel" name="label_5">
                  <property name="text">
-                  <string>Gender:</string>
+                  <string>性别：</string>
                  </property>
                 </widget>
                </item>
@@ -137,12 +137,12 @@
                 <widget class="QComboBox" name="comboBoxGender">
                  <item>
                   <property name="text">
-                   <string>Male</string>
+                   <string>男</string>
                   </property>
                  </item>
                  <item>
                   <property name="text">
-                   <string>Female</string>
+                   <string>女</string>
                   </property>
                  </item>
                 </widget>
@@ -162,7 +162,7 @@
          <item>
           <widget class="QLabel" name="labelMobileNumber">
            <property name="text">
-            <string>Mobile:</string>
+            <string>手机：</string>
            </property>
           </widget>
          </item>
@@ -172,7 +172,7 @@
          <item>
           <widget class="QLabel" name="label_3">
            <property name="text">
-            <string>Fix:</string>
+            <string>座机：</string>
            </property>
           </widget>
          </item>
@@ -188,7 +188,7 @@
          <item>
           <widget class="QLabel" name="label_2">
            <property name="text">
-            <string>Remark:</string>
+            <string>备注：</string>
            </property>
           </widget>
          </item>
@@ -213,21 +213,21 @@
          <item>
           <widget class="QPushButton" name="pushButtonAdd">
            <property name="text">
-            <string>Add</string>
+            <string>添加</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButtonModify">
            <property name="text">
-            <string>Modify</string>
+            <string>修改</string>
            </property>
           </widget>
          </item>
          <item>
           <widget class="QPushButton" name="pushButtonDelete">
            <property name="text">
-            <string>Delete</string>
+            <string>删除</string>
            </property>
           </widget>
          </item>
@@ -240,7 +240,7 @@
             </sizepolicy>
            </property>
            <property name="text">
-            <string>Exit</string>
+            <string>退出</string>
            </property>
           </widget>
          </item>
