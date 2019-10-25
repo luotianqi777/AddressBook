@@ -45,8 +45,8 @@ void Widget::setInformation(Information data)
     ui->comboBoxGender->setCurrentIndex(data.getGender());
     ui->lineEditName->setText(data.getName());
     ui->lineEditRemark->setText(data.getRemark());
-    ui->lineEditFixNumber->setText(QString::number(data.getFixNumber()));
-    ui->lineEditMobileNumber->setText(QString::number(data.getMobileNumber()));
+    ui->lineEditFixNumber->setText(data.getFixNumber()==0?"":QString::number(data.getFixNumber()));
+    ui->lineEditMobileNumber->setText(data.getMobileNumber()==0?"":QString::number(data.getMobileNumber()));
     ui->textEdit->setText(data.getOtherInfo());
 }
 
@@ -72,14 +72,27 @@ void Widget::on_pushButtonExit_clicked()
 
 void Widget::on_pushButtonDelete_clicked()
 {
+    // no items
+    if(ui->listWidgetAddress->count() == 0){
+        return;
+    }
     int index = ui->listWidgetAddress->currentRow();
+    // remove item
+    delete ui->listWidgetAddress->takeItem(index);
+    // remove information
     informations.removeAt(index);
-    ui->listWidgetAddress->takeItem(index);
 }
 
 void Widget::on_listWidgetAddress_itemSelectionChanged()
 {
     int id = ui->listWidgetAddress->currentRow();
+    // no items
+    if(ui->listWidgetAddress->currentRow()<0){
+        // cleat information
+        setInformation(Information("",2,0,0,"",""));
+        return;
+    }
+    // else set information
     setInformation(informations.at(id));
 }
 
@@ -100,6 +113,9 @@ void Widget::setEditable(bool isEditable)
         ui->textEdit->setFocusPolicy(Qt::FocusPolicy::ClickFocus);
         ui->comboBoxGender->setFocusPolicy(Qt::FocusPolicy::ClickFocus);
     }
+    //
+    ui->pushButtonAdd->setEnabled(!isEditable);
+
     ui->lineEditName->setReadOnly(!isEditable);
     ui->lineEditRemark->setReadOnly(!isEditable);
     ui->lineEditFixNumber->setReadOnly(!isEditable);
@@ -118,7 +134,7 @@ void Widget::on_pushButtonModify_clicked()
     // 检查十分可编辑 是则检查是否非法
     if(isEditAble && !checkRight()){
         // 当前可编辑且非法
-        QMessageBox::warning(this,"修改失败!","手机号必须不与其他人重复且不为零");
+        QMessageBox::warning(this,"修改失败!","手机号必须为纯数字且不与其他人重复且不为空");
     }else{
         // 改变可编辑状态
         setEditable(!isEditAble);
@@ -132,6 +148,7 @@ void Widget::on_pushButtonAdd_clicked()
     ui->listWidgetAddress->addItem(new_info.getName());
     ui->listWidgetAddress->setCurrentRow(informations.size()-1);
     setInformation(informations.at(informations.size()-1));
+    on_pushButtonModify_clicked();
 }
 
 bool Widget::checkRight()

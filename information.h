@@ -31,6 +31,7 @@ public:
     inline void setMobileNumber(int mobileNumber) { this->mobileNumber = mobileNumber; }
     inline void setRemark(QString remark) { this->remark = remark; }
     inline void setOtherInfo(QString otherInfo) { this->otherInfo = otherInfo; }
+    QString toString();
     ~Information();
 
 };

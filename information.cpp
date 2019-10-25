@@ -16,6 +16,11 @@ Information::Information(QString name, int gender, int fixNumber, int mobileNumb
     this->otherInfo = otherInfo;
 }
 
+QString Information::toString()
+{
+    return QString("name:%1 mobileNumber:%2").arg(name).arg(mobileNumber);
+}
+
 Information::~Information()
 {
 
