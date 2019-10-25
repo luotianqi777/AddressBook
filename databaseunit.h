@@ -5,7 +5,6 @@
 #include <QSqlQuery>
 #include <QSqlError>
 #include <QDebug>
-#include <bits/ios_base.h>
 #include "information.h"
 
 /*

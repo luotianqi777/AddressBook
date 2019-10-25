@@ -53,14 +53,18 @@ void Widget::setInformation(Information data)
 void Widget::on_pushButtonExit_clicked()
 {
     // 强行维护数据
-    // 仅适用于极小数据量
+    // 仅用于极小数据量
     // 无赖算法
 
     // 删除所有数据
     dbUnit.DeleteAllData();
     // 保存新数据
-    for(int i=0;i<informations.size();i++){
-        dbUnit.Append(i,informations.at(i));
+    int id = 0;
+    for(Information data : informations){
+        if(data.getMobileNumber()>0){
+            dbUnit.Append(id, data);
+            id++;
+        }
     }
     // 退出
     this->close();
@@ -114,7 +118,7 @@ void Widget::on_pushButtonModify_clicked()
     // 检查十分可编辑 是则检查是否非法
     if(isEditAble && !checkRight()){
         // 当前可编辑且非法
-        QMessageBox::warning(this,"修改失败!","mobile必须不与其他人重复且不为零");
+        QMessageBox::warning(this,"修改失败!","手机号必须不与其他人重复且不为零");
     }else{
         // 改变可编辑状态
         setEditable(!isEditAble);
@@ -133,8 +137,8 @@ void Widget::on_pushButtonAdd_clicked()
 bool Widget::checkRight()
 {
     Information current_info=getInformation();
-    // mobile不能为零
-    if(current_info.getMobileNumber()==0){
+    // mobile必须为正数
+    if(current_info.getMobileNumber()<=0){
         return false;
     }
     int index = ui->listWidgetAddress->currentRow();
