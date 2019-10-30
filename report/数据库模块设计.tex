@@ -1,0 +1,28 @@
+\section{数据库结构设计}
+	\begin{tabular}{|l|l|l|}
+	    \hline
+	    \multicolumn{3}{|c|}{Table Name : Address} \\
+	    \hline
+	    字段名 & 类型 & 约束 \\
+	    \hline
+	    id & INT & PRIMARY KEY NOT NULL \\
+	    name & CHAR(10) & NOT NULL \\
+	    gender & INT & NOT NULL \\
+	    mobile\_number & INT & UNIQUE NOT NULL \\
+	    fix\_number & INT & \\
+	    remark & CHAR(20) &  \\
+	    other\_infomation & CHAR(50) & \\
+	    \hline
+	\end{tabular}
+\section{数据库模块API设计}
+	\begin{tabular}{|l|l|l|}
+	    \hline
+	    返回类型 & 名称 & 功能 \\
+	    \hline
+	    bool & Append(int id,Information data) & 添加一条数据 \\
+	    bool & Change(int id, Information data) & 更改一条数据 \\
+	    bool & DeleteAllData() & 删除所有数据 \\
+	    bool & DeleteTable() & 删除表 \\
+	    List<Information> & GetAllDatas() & 获取所有数据 \\
+	    \hline
+	\end{tabular}

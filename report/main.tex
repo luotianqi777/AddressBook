@@ -1,0 +1,39 @@
+\documentclass[a4paper,14pt]{report}
+
+\usepackage{tikz}
+\usetikzlibrary{shapes,arrows}
+\usepackage{xeCJK}
+\usepackage[left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
+\usepackage{epstopdf}
+\graphicspath{{graphics/}}
+
+% 表格行距控制
+\renewcommand\arraystretch{1.8}
+\renewcommand\chaptername{\textsc{Chapter}}
+
+\title{\fontsize{24}{0.1in}通讯录软件设计文档}
+\author{骆天奇\thanks{班级:信息与计算科学$1601$  学号:$2016254060407$}}
+\date{}
+
+\begin{document}
+
+	\maketitle
+	\tableofcontents
+	
+	% 导入流程图包
+	\input{flowChart.tex}
+	
+	\chapter{开发规划}
+		\input{开发规划.tex}
+	\chapter{总体设计}
+		\input{总体设计.tex}
+	\chapter{数据结构}
+		\input{数据结构.tex}
+	\chapter{窗口模块设计}
+		\input{窗口模块设计.tex}
+	\chapter{数据库模块设计}
+		\input{数据库模块设计.tex}
+	\chapter{控制模块设计}
+		\input{控制模块设计.tex}
+
+\end{document}

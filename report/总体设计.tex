@@ -1,0 +1,20 @@
+\section{总体设计逻辑设计图} 
+	\begin{tikzpicture}
+	    \node (ui) [startstop] {窗口模块} ;
+	    \node (control) [startstop, right of = ui, xshift = 3cm] {控制模块} ;
+	    \node (database) [startstop, right of = control, xshift = 3cm] {数据库模块} ;
+	    \draw (ui) -- (control) ;
+	    \draw (database) -- (control) ;
+	\end{tikzpicture}
+\section{模块列表}
+	\begin{tabular}{|c|c|}
+	    \hline
+	    模块名称 & 模块功能 \\
+	    \hline 
+	    窗口模块 & 管理UI \\
+	    \hline
+	    数据库模块 & 管理数据库 \\
+	    \hline
+	    控制模块 & 管理UI与数据库的通讯 \\
+	    \hline
+	\end{tabular}
