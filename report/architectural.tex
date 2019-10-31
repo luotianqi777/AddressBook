@@ -1,0 +1,137 @@
+% 概要设计
+\section{总体设计}
+	\subsection{功能分配}
+		\begin{tabular}{|c|l|l|}
+			\hline
+			母模块名称& 子模块名称 & 模块功能 \\
+			\hline 
+			\multirow{3}{*}{ 窗口模块}
+			& 窗口移动模块 & 鼠标拖动窗口移动 \\
+			\cline{2-3}
+			& 数据可编辑性设置模块 & 改变数据可编辑性状态 \\
+			\cline{2-3}
+			& 数据合法检查模块 & 检查数据是否合法 \\
+			\hline
+			\multirow{3}{*}{
+			数据库模块} 
+			& 数据添加模块 & 向数据库添加数据 \\
+			\cline{2-3}
+			& 数据修改模块 & 从数据库中修改数据 \\
+			\cline{2-3}
+			& 数据获取模块 & 读取数据库的数据 \\
+			\hline
+			\multirow{5}{*}{控制模块}
+			& 初始化模块 & 程序启动时从数据库中读取数据用于初始化界面 \\
+			\cline{2-3}
+			& 退出模块 & 程序退出时将数据同步到数据库 \\
+			\cline{2-3}
+			& 记录添加模块 & 向UI中添加记录 \\
+			\cline{2-3}
+			& 记录删除模块 & 从UI中删除记录 \\
+			\cline{2-3}
+			& 记录修改模块 & 从UI中修改记录 \\
+			\hline
+		\end{tabular}
+\section{数据结构设计}
+	\subsection{逻辑结构设计}
+		\begin{itemize}
+			\item[-] Class Name: Information
+			\item ID(索引)
+			\item 姓名
+			\item 性别
+			\item 移动电话(唯一)
+			\item 固定电话
+			\item 备注
+			\item 其他
+		\end{itemize}
+	\subsection{物理结构设计}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			\multicolumn{3}{|c|}{Class Name: Information} \\
+			\hline
+			修饰符 & 类型 & 标识符 \\
+			\hline
+			private & int & gender \\
+			private & int & fixNumber \\
+			private & int & mobileNumber \\
+			private & string & name \\
+			private & string & remark \\
+			private & string & otherInfo \\
+			\hline
+			public & int & getGender() \\
+			public & int & getFixNumber() \\
+			public & int & getMobileNumber() \\
+			public & string & getName() \\
+			public & string & getRemark() \\
+			public & string & getOtherInfo() \\
+			public & void & setGender(int) \\
+			public & void & setFixNumber(int) \\
+			public & void & setMobileNumber(int) \\
+			public & void & setName(string) \\
+			public & void & setRemark(string) \\
+			public & void & setOtherInfo(string) \\
+			\hline
+		\end{tabular}
+	\subsection{数据结构与程序的关系}
+		\begin{itemize}
+			\item 用于储存从数据库读取的数据并通过控制模块显示到UI上。
+			\item 用于储存从UI上读取的数据并通过控制模块同步到数据库。
+	\end{itemize}
+\section{接口设计}
+	\subsection{内部接口}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			返回类型 & 名称 & 功能 \\
+			\hline
+			bool & Append(int id,Information data) & 添加一条数据 \\
+			bool & Change(int id, Information data) & 更改一条数据 \\
+			bool & DeleteAllData() & 删除所有数据 \\
+			bool & DeleteTable() & 删除表 \\
+			List<Information> & GetAllDatas() & 获取所有数据 \\
+			\hline
+		\end{tabular}
+	\subsection{外部接口}
+		\begin{tabular}{|l|l|l|}
+			\hline
+			返回类型 & 名称 & 功能 \\
+			\hline
+			void & setInformation(Information data) & 设置UI界面信息 \\
+			void & on\_pushButtonExit\_clicked() & 点击关闭按钮 \\
+			void & on\_pushButtonDelete\_clicked() & 点击删除按钮 \\
+			void & on\_listWidgetAddress\_itemSelectionChanged() & 联系人选中项变更 \\
+			void & setEditable(bool isEditable) & 设置可编辑性 \\
+			void & on\_pushButtonModify\_clicked() & 点击修改按钮 \\
+			void & on\_pushButtonAdd\_clicked() & 点击添加按钮 \\
+			bool & checkRight() & 检查数据正确性 \\
+			\hline
+		\end{tabular}
+\section{运行设计}
+	\subsection{运行模块的组合}
+		\begin{tikzpicture}[node distance = 2cm]
+		\node (control) [startstop] {控制模块} ;
+		\node (ui) [startstop, left of = control, xshift = -1cm, yshift = -2cm] {窗口模块} ;
+		\node (database) [startstop, right of = control, xshift = 1cm, yshift = -2cm] {数据库模块} ;
+		\draw (ui) -- (control) ;
+		\draw (database) -- (control) ;
+		\end{tikzpicture}
+	\subsection{运行控制流程}	
+		\begin{tikzpicture}[node distance = 2cm]
+		\node (init) [process] {界面初始化} ;
+		\node (data) [process, right of = init, xshift = 3cm] {窗口模块} ;
+		\node (start) [startstop, right of = data, xshift = 2cm] {启动程序} ;
+		\node (input) [io, below of = init] {输入} ;
+		\node (control) [process, below of = input] {控制模块} ;
+		\node (exit?) [decision, right of = control, xshift = 3cm] {退出程序？} ;
+		\node (run) [process, below of = exit?, yshift = 4cm] {处理输入} ;
+		\node (end) [startstop, right of = exit?, xshift = 2cm] {退出程序} ;
+		
+		
+		\draw [arrow] (start) -- (data) ;
+		\draw [arrow] (data) --node[above]{控制模块}node[below]{数据库模块} (init) ;
+		\draw [arrow] (init) -- (input) ;
+		\draw [arrow] (input) -- (control) ;
+		\draw [arrow] (control) -- (exit?) ;
+		\draw [arrow] (exit?) -- node[above]{Y} (end) ;
+		\draw [arrow] (exit?) -- node[right]{N} (run) ;
+		\draw [arrow] (run) -- (input) ;
+		\end{tikzpicture}

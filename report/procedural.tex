@@ -1,0 +1,150 @@
+% 详细设计
+\section{窗口模块设计}
+	\subsection{窗口移动模块}
+		\begin{enumerate}
+			\item 功能\\鼠标拖拽窗口移动
+			\item 性能\\窗口能够流畅移动，无卡顿。
+			\item 程序逻辑\\
+			\begin{tikzpicture}[node distance = 1.5cm]
+				\node[startstop](start){程序启动} ;
+				\node[process, below of = start](run){运行中} ;
+				\node[decision, below of = run](click?){鼠标按下？} ;
+				\node[left of = click?, xshift = -1cm](pt-1){} ;
+				\coordinate(pt1) at (pt-1);
+				\node[process, below of=click?](save){保存鼠标位置$pos_1$};
+				\node[io, below of=save](move){鼠标移动,位置$pos_2$};
+				\node[process,below of=move](cal){计算窗口相对移动位置$pos=pos_2-pos_1$};
+				\node[right of=cal,xshift=3cm](pt-2){};
+				\coordinate (pt2) at (pt-2);
+				
+				\draw [arrow] (start) -- (run) ;
+				\draw [arrow] (run) -- (click?) ;
+				\draw (click?) --node[above]{N} (pt1) ;
+				\draw [arrow] (pt1) |- (run) ;
+				\draw[arrow] (click?) --node[right]{Y} (save);
+				\draw[arrow] (save) -- (move);
+				\draw[arrow] (move) -- (cal);
+				\draw (cal) -- (pt2);
+				\draw[arrow] (pt2) |- (run);
+			\end{tikzpicture}
+			\item 测试要点
+				\subitem 程序窗口移动到屏幕边界时能否正常显示。
+		\end{enumerate}
+	\subsection{数据可编辑性设置模块}
+		\begin{itemize}
+			\item 功能 \\ 改变数据可编辑状态
+			\item 程序逻辑 \\
+			\begin{tikzpicture}[node distance=1.5cm]
+				\node[startstop](start){开始};
+				\node[process,below of=start](run){改变界面数据可编辑性};
+				\node[startstop,below of=run](end){结束};
+				\draw[arrow](start)--(run);
+				\draw[arrow](run)--(end);
+			\end{tikzpicture}
+			\item 接口 \\ void setEditable(bool)
+		\end{itemize}
+	\subsection{数据合法性检查模块}
+		\begin{itemize}
+			\item 功能 \\ 检查数据是否合法
+			\item 程序逻辑 \\
+			\begin{tikzpicture}[node distance=2cm]
+				\node[startstop](start){开始};
+				\node[decision,below of=start](ok?){是否合法？};
+				\node[startstop,below of=ok?](true){返回True};
+				\node[startstop,right of=ok?,xshift=1.5cm](false){返回False};
+				\draw[arrow](start)--(ok?);
+				\draw[arrow](ok?)--node[right]{Y}(true);
+				\draw[arrow](ok?)--node[above]{N}(false);
+			\end{tikzpicture}
+			\item 接口 \\ bool checkRight()
+			\item 测试要点
+				\subitem 数据为空或非法时的合法性检验。
+		\end{itemize}
+\section{数据库模块设计}
+	\subsection{数据添加模块}
+	\begin{itemize}
+		\item 功能 \\ 向数据库中添加一条记录
+		\item 程序逻辑\\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[process,below of=start](run){写入数据};
+			\node[decision,below of=run](ok?){写入是否成功？};
+			\node[startstop,below of=ok?](true){返回True};
+			\node[startstop,right of=ok?,xshift=2cm](false){返回False};
+			\draw[arrow](start)--(run);
+			\draw[arrow](run)--(ok?);
+			\draw[arrow](ok?)--node[right]{Y}(true);
+			\draw[arrow](ok?)--node[above]{N}(false);
+		\end{tikzpicture}
+		\item 接口 \\ bool Append(int, Information)
+		\item 测试要点
+			\subitem 在数据库中检查数据是否添加成功以及所添加的数据是否正确。
+	\end{itemize}
+	\subsection{数据修改模块}
+	\begin{itemize}
+		\item 功能　\\ 修改数据库中一条记录
+		\item 程序逻辑 \\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[process,below of=start](run){修改数据};
+			\node[decision,below of=run](ok?){修改是否成功？};
+			\node[startstop,below of=ok?](true){返回True};
+			\node[startstop,right of=ok?,xshift=2cm](false){返回False};
+			\draw[arrow](start)--(run);
+			\draw[arrow](run)--(ok?);
+			\draw[arrow](ok?)--node[right]{Y}(true);
+			\draw[arrow](ok?)--node[above]{N}(false);
+		\end{tikzpicture}
+		\item 接口 \\ bool Change(int, Information)
+		\item 测试要点
+			\subitem 在数据库中检查数据是否成功修改
+	\end{itemize}
+	\subsection{数据获取模块}
+	\begin{itemize}
+		\item 功能
+		\item 性能
+		\item 程序逻辑
+		\item 接口
+		\item 测试要点
+	\end{itemize}
+\section{控制模块设计}
+	\subsection{初始化模块}
+	\begin{itemize}
+		\item 功能
+		\item 性能
+		\item 程序逻辑
+		\item 接口
+		\item 测试要点
+	\end{itemize}
+	\subsection{退出模块}
+	\begin{itemize}
+		\item 功能
+		\item 性能
+		\item 程序逻辑
+		\item 接口
+		\item 测试要点
+	\end{itemize}
+	\subsection{记录添加模块}
+	\begin{itemize}
+		\item 功能
+		\item 性能
+		\item 程序逻辑
+		\item 接口
+		\item 测试要点
+	\end{itemize}
+	\subsection{记录删除模块}
+	\begin{itemize}
+		\item 功能
+		\item 性能
+		\item 程序逻辑
+		\item 接口
+		\item 测试要点
+	\end{itemize}
+	\subsection{记录修改模块}
+	\begin{itemize}
+		\item 功能
+		\item 性能
+		\item 程序逻辑
+		\item 接口
+		\item 测试要点
+	\end{itemize}
