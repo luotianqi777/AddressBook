@@ -1,8 +1,8 @@
 \section{总体设计逻辑设计图} 
-	\begin{tikzpicture}
-	    \node (ui) [startstop] {窗口模块} ;
-	    \node (control) [startstop, right of = ui, xshift = 3cm] {控制模块} ;
-	    \node (database) [startstop, right of = control, xshift = 3cm] {数据库模块} ;
+	\begin{tikzpicture}[node distance = 2cm]
+		\node (control) [startstop] {控制模块} ;
+	    \node (ui) [startstop, left of = control, xshift = -1cm, yshift = -2cm] {窗口模块} ;
+	    \node (database) [startstop, right of = control, xshift = 1cm, yshift = -2cm] {数据库模块} ;
 	    \draw (ui) -- (control) ;
 	    \draw (database) -- (control) ;
 	\end{tikzpicture}
@@ -18,3 +18,25 @@
 	    控制模块 & 管理UI与数据库的通讯 \\
 	    \hline
 	\end{tabular}
+\section{总流程设计}
+	\begin{tikzpicture}[node distance = 2cm]
+		\node (init) [process] {界面初始化} ;
+		\node (data) [process, right of = init, xshift = 3cm] {窗口模块} ;
+		\node (start) [startstop, right of = data, xshift = 2cm] {启动程序} ;
+		\node (input) [io, below of = init] {输入} ;
+		\node (control) [process, below of = input] {控制模块} ;
+		\node (exit?) [decision, right of = control, xshift = 3cm] {退出程序？} ;
+		\node (run) [process, below of = exit?, yshift = 4cm] {处理输入} ;
+		\node (end) [startstop, right of = exit?, xshift = 2cm] {退出程序} ;
+
+		
+		\draw [arrow] (start) -- (data) ;
+		\draw [arrow] (data) --node[yshift = 0.3cm]{控制模块}node[yshift = -0.3cm]{数据库模块} (init) ;
+		\draw [arrow] (init) -- (input) ;
+		\draw [arrow] (input) -- (control) ;
+		\draw [arrow] (control) -- (exit?) ;
+		\draw [arrow] (exit?) -- node[yshift = 0.3cm]{Y} (end) ;
+		\draw [arrow] (exit?) -- node[xshift = 0.3cm]{N} (run) ;
+		\draw [arrow] (run) -- (input) ;
+		
+	\end{tikzpicture}
