@@ -24,6 +24,9 @@ private slots:
     // 获取当前界面数据信息
     Information getInformation();
 
+    // 初始化
+    void init();
+
     // 设置数据信息
     void setInformation(Information data);
 

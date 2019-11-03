@@ -1,9 +1,37 @@
 % 详细设计
+\chapter{详细设计}
+\section{开发环境和工具}
+	\begin{tabular}{|c|c|}
+		\hline
+		开发系统 & Linux(Ubuntu) \\
+		\hline
+		开发语言 & C++ \\
+		\hline
+		开发框架 & Qt \\
+		\hline
+		版本管理 & Git \\
+		\hline
+		数据库 & Sqlite \\
+		\hline
+		文档撰写 & \LaTeX \\
+		\hline
+	\end{tabular}
+\section{开发规范}
+	\begin{tabular}{|c|p{3cm}|}
+		\hline
+		规范对象 & 遵从的规范 \\
+		\hline 
+		变量命名规范 & 驼峰命名法 \\
+		\hline
+		数据库命名规范 & 由[a-z]及\_组成并尽可能言简意赅 \\
+		\hline
+		编码风格规范 & Google C++ Style \\
+		\hline
+	\end{tabular}
 \section{窗口模块设计}
 	\subsection{窗口移动模块}
-		\begin{enumerate}
+		\begin{itemize}
 			\item 功能\\鼠标拖拽窗口移动
-			\item 性能\\窗口能够流畅移动，无卡顿。
 			\item 程序逻辑\\
 			\begin{tikzpicture}[node distance = 1.5cm]
 				\node[startstop](start){程序启动} ;
@@ -27,9 +55,7 @@
 				\draw (cal) -- (pt2);
 				\draw[arrow] (pt2) |- (run);
 			\end{tikzpicture}
-			\item 测试要点
-				\subitem 程序窗口移动到屏幕边界时能否正常显示。
-		\end{enumerate}
+		\end{itemize}
 	\subsection{数据可编辑性设置模块}
 		\begin{itemize}
 			\item 功能 \\ 改变数据可编辑状态
@@ -41,7 +67,8 @@
 				\draw[arrow](start)--(run);
 				\draw[arrow](run)--(end);
 			\end{tikzpicture}
-			\item 接口 \\ void setEditable(bool)
+			\item 接口 
+				\subitem void setEditable(bool)
 		\end{itemize}
 	\subsection{数据合法性检查模块}
 		\begin{itemize}
@@ -56,9 +83,22 @@
 				\draw[arrow](ok?)--node[right]{Y}(true);
 				\draw[arrow](ok?)--node[above]{N}(false);
 			\end{tikzpicture}
-			\item 接口 \\ bool checkRight()
-			\item 测试要点
-				\subitem 数据为空或非法时的合法性检验。
+			\item 接口 
+				\subitem bool checkRight()
+		\end{itemize}
+	\subsection{数据显示模块}
+		\begin{itemize}
+			\item 功能\\将数据显示到界面上
+			\item 程序逻辑\\
+			\begin{tikzpicture}[node distance=2cm]
+				\node[startstop](start){开始};
+				\node[process,below of=start](show){将数据显示到界面上};
+				\node[startstop,below of=show](end){结束};
+				\draw[arrow](start)--(show);
+				\draw[arrow](show)--(end);
+			\end{tikzpicture}
+			\item 接口
+				\subitem void setInformation(Information)
 		\end{itemize}
 \section{数据库模块设计}
 	\subsection{数据添加模块}
@@ -76,9 +116,8 @@
 			\draw[arrow](ok?)--node[right]{Y}(true);
 			\draw[arrow](ok?)--node[above]{N}(false);
 		\end{tikzpicture}
-		\item 接口 \\ bool Append(int, Information)
-		\item 测试要点
-			\subitem 在数据库中检查数据是否添加成功以及所添加的数据是否正确。
+		\item 接口 
+			\subitem bool Append(int, Information)
 	\end{itemize}
 	\subsection{数据修改模块}
 	\begin{itemize}
@@ -95,56 +134,147 @@
 			\draw[arrow](ok?)--node[right]{Y}(true);
 			\draw[arrow](ok?)--node[above]{N}(false);
 		\end{tikzpicture}
-		\item 接口 \\ bool Change(int, Information)
-		\item 测试要点
-			\subitem 在数据库中检查数据是否成功修改
+		\item 接口 
+			\subitem bool Change(int, Information)
+	\end{itemize}
+	\subsection{数据清空模块}
+	\begin{itemize}
+		\item 功能 \\ 删除所有数据
+		\item 程序逻辑 \\
+			\begin{tikzpicture}[node distance=2cm]
+				\node[startstop](start){开始};
+				\node[process,below of=start](run){删除数据};
+				\node[decision,below of=run](ok?){删除是否成功？};
+				\node[startstop,below of=ok?](true){返回True};
+				\node[startstop,right of=ok?,xshift=2cm](false){返回False};
+				\draw[arrow](start)--(run);
+				\draw[arrow](run)--(ok?);
+				\draw[arrow](ok?)--node[right]{Y}(true);
+				\draw[arrow](ok?)--node[above]{N}(false);
+			\end{tikzpicture}
+		\item 接口 
+			\subitem void DeleteAllDatas()
 	\end{itemize}
 	\subsection{数据获取模块}
 	\begin{itemize}
-		\item 功能
-		\item 性能
-		\item 程序逻辑
-		\item 接口
-		\item 测试要点
+		\item 功能 \\ 获取所有数据
+		\item 程序逻辑 \\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[process,below of=start](search){查询数据};
+			\node[startstop,below of=search](end){返回查询结果};
+			\draw[arrow](start)--(search);
+			\draw[arrow](search)--(end);
+		\end{tikzpicture}
+		\item 接口 
+			\subitem List<Information> GetAllDatas()
 	\end{itemize}
 \section{控制模块设计}
 	\subsection{初始化模块}
 	\begin{itemize}
-		\item 功能
-		\item 性能
-		\item 程序逻辑
+		\item 功能\\从数据库读取数据初始化程序
+		\item 程序逻辑\\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[process,right of=start,xshift=2cm](get){从数据库读取所有数据};
+			\node[process,below of=get](show){显示第一条数据};
+			\node[process,left of=show,xshift=-2cm](editF){设置不可编辑};
+			\node[startstop,below of=editF](end){结束};
+			\draw[arrow](start)--(get);
+			\draw[arrow](get)--(show);
+			\draw[arrow](show)--(editF);
+			\draw[arrow](editF)--(end);
+		\end{tikzpicture}
 		\item 接口
-		\item 测试要点
+			\subitem void init()
 	\end{itemize}
 	\subsection{退出模块}
 	\begin{itemize}
-		\item 功能
-		\item 性能
-		\item 程序逻辑
-		\item 接口
-		\item 测试要点
+		\item 功能\\储存数据并退出程序
+		\item 程序逻辑\\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[process,below of=start](delete){删除数据库所有数据};
+			\node[process,below of=delete](save){将当前所有数据添加到数据库};
+			\node[startstop,below of=save](end){退出程序};
+			\draw[arrow](start)--(delete);
+			\draw[arrow](delete)--(save);
+			\draw[arrow](save)--(end);
+		\end{tikzpicture}
+		\item 接口 on\_pushButtonExit\_clicked()
 	\end{itemize}
 	\subsection{记录添加模块}
 	\begin{itemize}
-		\item 功能
-		\item 性能
-		\item 程序逻辑
+		\item 功能\\添加一条记录
+		\item 程序逻辑\\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[process,below of=start](editT){设置可编辑};
+			\node[io,below of=editT](input){编辑信息};
+			\node[process,below of=input](modify){进入记录修改模块};
+			\draw[arrow](start)--(editT);
+			\draw[arrow](editT)--(input);
+			\draw[arrow](input)--(modify);
+		\end{tikzpicture}
 		\item 接口
-		\item 测试要点
+			\subitem void on\_pushButtonAdd\_clicked()
 	\end{itemize}
 	\subsection{记录删除模块}
 	\begin{itemize}
-		\item 功能
-		\item 性能
-		\item 程序逻辑
+		\item 功能 \\删除记录
+		\item 程序逻辑\\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[process,below of=start](delete){删除信息};
+			\node[process,below of=delete](set){设置新的信息};
+			\node[startstop,below of=set](end){结束};
+			\draw[arrow](start)--(delete);
+			\draw[arrow](delete)--(set);
+			\draw[arrow](set)--(end);
+		\end{tikzpicture}
 		\item 接口
-		\item 测试要点
+			\subitem void on\_pushButtonDelete\_clicked()
 	\end{itemize}
 	\subsection{记录修改模块}
 	\begin{itemize}
-		\item 功能
-		\item 性能
-		\item 程序逻辑
+		\item 功能\\修改记录
+		\item 程序逻辑\\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[io,below of=start](input){输入};
+			\node[decision,below of=input](edit?){窗口是否在可编辑状态};
+			\node[decision,below of=edit?,right of=edit?](ok?){输入是否合法};
+			\node[right of=ok?,xshift=1cm](pt-1){};
+			\coordinate(pt1) at (pt-1);
+			\node[process,below of=edit?,left of=edit?](editF){设置不可编辑状态};
+			\node[process,below of=ok?](editT){设置可编辑状态};
+			\node[startstop,below of=editF](end){结束};
+			\draw[arrow](start)--(input);
+			\draw[arrow](input)--(edit?);
+			\draw[arrow](edit?)--node[left]{可编辑}(editF);
+			\draw[arrow](edit?)--node[right]{不可编辑}(ok?);
+			\draw[arrow](ok?)--node[right]{Y}(editT);
+			\draw(ok?)--node[above]{N}(pt1);
+			\draw[arrow](pt1)|-(input);
+			\draw[arrow](editF)--(end);
+			\draw[arrow](editT)--(end);
+		\end{tikzpicture}
 		\item 接口
-		\item 测试要点
+			\subitem void on\_pushButtonModify\_clicked()
+	\end{itemize}
+	\subsection{联系人更改模块}
+	\begin{itemize}
+		\item 功能\\更变联系人时更改显示信息
+		\item 程序逻辑\\
+		\begin{tikzpicture}[node distance=2cm]
+			\node[startstop](start){开始};
+			\node[process,below of=start](get){获取选中联系人编号$id$};
+			\node[process,below of=get](set){设置新的数据};
+			\node[startstop,below of=set](end){结束};
+			\draw[arrow](start)--(get);
+			\draw[arrow](get)--(set);
+			\draw[arrow](set)--(end);
+		\end{tikzpicture}
+		\item 接口
+			\subitem void on\_listWidgetAddress\_itemSelectionChanged()
 	\end{itemize}

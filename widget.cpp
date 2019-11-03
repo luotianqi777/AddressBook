@@ -7,20 +7,7 @@ Widget::Widget(QWidget *parent)
     , ui(new Ui::Widget)
 {
     ui->setupUi(this);
-
-    // 获取所有信息
-    informations = dbUnit.GetAllDatas();
-    // 添加到listWidgt
-    for(Information data: informations){
-        QString name = data.getName();
-        ui->listWidgetAddress->addItem(name);
-    }
-    // 设置listWidgt默认选择
-    ui->listWidgetAddress->setCurrentRow(0);
-
-    // 设置不可编辑
-    setEditable(false);
-
+    init();
 }
 
 Widget::~Widget()
@@ -38,6 +25,23 @@ Information Widget::getInformation()
     data.setMobileNumber(ui->lineEditMobileNumber->text().toInt());
     data.setOtherInfo(ui->textEdit->toPlainText());
     return data;
+}
+
+void Widget::init()
+{
+
+    // 获取所有信息
+    informations = dbUnit.GetAllDatas();
+    // 添加到listWidgt
+    for(Information data: informations){
+        QString name = data.getName();
+        ui->listWidgetAddress->addItem(name);
+    }
+    // 设置listWidgt默认选择
+    ui->listWidgetAddress->setCurrentRow(0);
+
+    // 设置不可编辑
+    setEditable(false);
 }
 
 void Widget::setInformation(Information data)

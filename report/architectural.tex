@@ -1,24 +1,30 @@
 % 概要设计
+\chapter{概要设计}
 \section{总体设计}
+
 	\subsection{功能分配}
 		\begin{tabular}{|c|l|l|}
 			\hline
 			母模块名称& 子模块名称 & 模块功能 \\
 			\hline 
-			\multirow{3}{*}{ 窗口模块}
+			\multirow{4}{*}{ 窗口模块}
 			& 窗口移动模块 & 鼠标拖动窗口移动 \\
 			\cline{2-3}
 			& 数据可编辑性设置模块 & 改变数据可编辑性状态 \\
 			\cline{2-3}
 			& 数据合法检查模块 & 检查数据是否合法 \\
+			\cline{2-3}
+			& 数据显示模块 & 将数据显示到界面上 \\
 			\hline
-			\multirow{3}{*}{
+			\multirow{4}{*}{
 			数据库模块} 
 			& 数据添加模块 & 向数据库添加数据 \\
 			\cline{2-3}
 			& 数据修改模块 & 从数据库中修改数据 \\
 			\cline{2-3}
 			& 数据获取模块 & 读取数据库的数据 \\
+			\cline{2-3}
+			& 数据清空模块 & 删除数据库的所有数据 \\
 			\hline
 			\multirow{5}{*}{控制模块}
 			& 初始化模块 & 程序启动时从数据库中读取数据用于初始化界面 \\
@@ -78,31 +84,28 @@
 			\item 用于储存从UI上读取的数据并通过控制模块同步到数据库。
 	\end{itemize}
 \section{接口设计}
-	\subsection{内部接口}
-		\begin{tabular}{|l|l|l|}
+		\begin{tabular}{|l|l|l|p{3cm}|}
 			\hline
-			返回类型 & 名称 & 功能 \\
+			所属模块 &返回类型 & 名称  & 功能 \\
 			\hline
-			bool & Append(int id,Information data) & 添加一条数据 \\
-			bool & Change(int id, Information data) & 更改一条数据 \\
-			bool & DeleteAllData() & 删除所有数据 \\
-			bool & DeleteTable() & 删除表 \\
-			List<Information> & GetAllDatas() & 获取所有数据 \\
+			\multirow{3}{*}{窗口模块}
+			&bool & checkRight() &  \\
+			&void & setEditable(bool)  & 设置可编辑性 \\
+			&void & setInformation(Information) & 设置UI界面信息 \\
+			\hline			
+			\multirow{6}{*}{控制模块}
+			&void & init() &  初始化 \\
+			&void & on\_pushButtonExit\_clicked() &  点击关闭按钮时储存数据并退出程序 \\
+			&void & on\_pushButtonDelete\_clicked() &  点击删除按钮时删除选中记录 \\
+			&void & on\_pushButtonModify\_clicked() &  点击修改按钮时开始修改记录 再次点击时完成修改 \\
+			&void & on\_pushButtonAdd\_clicked() &  点击添加按钮时添加一条记录 \\
+			&void & on\_listWidgetAddress\_itemSelectionChanged() & 联系人选中项变更时更换显示数据 \\
 			\hline
-		\end{tabular}
-	\subsection{外部接口}
-		\begin{tabular}{|l|l|l|}
-			\hline
-			返回类型 & 名称 & 功能 \\
-			\hline
-			void & setInformation(Information data) & 设置UI界面信息 \\
-			void & on\_pushButtonExit\_clicked() & 点击关闭按钮 \\
-			void & on\_pushButtonDelete\_clicked() & 点击删除按钮 \\
-			void & on\_listWidgetAddress\_itemSelectionChanged() & 联系人选中项变更 \\
-			void & setEditable(bool isEditable) & 设置可编辑性 \\
-			void & on\_pushButtonModify\_clicked() & 点击修改按钮 \\
-			void & on\_pushButtonAdd\_clicked() & 点击添加按钮 \\
-			bool & checkRight() & 检查数据正确性 \\
+			\multirow{4}{*}{数据库模块}
+			&bool & Append(int id,Information data) &  添加一条数据 \\
+			&bool & Change(int id, Information data) & 更改一条数据 \\
+			&bool & DeleteAllData() &  删除所有数据 \\
+			&List<Information> & GetAllDatas() &  获取所有数据 \\
 			\hline
 		\end{tabular}
 \section{运行设计}

@@ -47,7 +47,6 @@ public:
     //bool Delete();
     // 更改一条数据
     bool Change(int id, Information data);
-    //bool Search();
     // 删除所有数据
     bool DeleteAllData();
     // 删除表
