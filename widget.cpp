@@ -85,6 +85,10 @@ void Widget::on_pushButtonDelete_clicked()
     delete ui->listWidgetAddress->takeItem(index);
     // remove information
     informations.removeAt(index);
+    if(isEditable()){
+        // 设置为不可编辑
+        setEditable(false);
+    }
 }
 
 void Widget::on_listWidgetAddress_itemSelectionChanged()
@@ -133,15 +137,13 @@ void Widget::setEditable(bool isEditable)
 
 void Widget::on_pushButtonModify_clicked()
 {
-    // 获取当前编辑状态
-    bool isEditAble = ui->comboBoxGender->isEnabled();
-    // 检查十分可编辑 是则检查是否非法
-    if(isEditAble && !checkRight()){
+    // 检查是否可编辑 是则检查是否非法
+    if(isEditable() && !checkRight()){
         // 当前可编辑且非法
         QMessageBox::warning(this,"修改失败!","手机号必须为纯数字且不与其他人重复且不为空");
     }else{
         // 改变可编辑状态
-        setEditable(!isEditAble);
+        setEditable(!isEditable());
     }
 }
 
@@ -152,7 +154,7 @@ void Widget::on_pushButtonAdd_clicked()
     ui->listWidgetAddress->addItem(new_info.getName());
     ui->listWidgetAddress->setCurrentRow(informations.size()-1);
     setInformation(informations.at(informations.size()-1));
-    on_pushButtonModify_clicked();
+    setEditable(true);
 }
 
 bool Widget::checkRight()
@@ -173,4 +175,9 @@ bool Widget::checkRight()
         setInformation(current_info);
     }
     return updateSuccess;
+}
+
+bool Widget::isEditable() const
+{
+    return !ui->lineEditName->isReadOnly();
 }

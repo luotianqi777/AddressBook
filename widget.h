@@ -54,6 +54,7 @@ private:
 
     QList<Information> informations;
 
+    bool isEditable() const;
 
 };
 #endif // WIDGET_H

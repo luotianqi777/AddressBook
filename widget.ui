@@ -6,14 +6,35 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>486</width>
-    <height>329</height>
+    <width>403</width>
+    <height>310</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Widget</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">*{
+    /* 背景色 */  
+	background-color: rgb(238, 238, 236);
+}</string>
+  </property>
   <layout class="QHBoxLayout" name="horizontalLayout_10">
+   <property name="spacing">
+    <number>5</number>
+   </property>
+   <property name="leftMargin">
+    <number>0</number>
+   </property>
+   <property name="topMargin">
+    <number>0</number>
+   </property>
+   <property name="rightMargin">
+    <number>0</number>
+   </property>
+   <property name="bottomMargin">
+    <number>0</number>
+   </property>
    <item>
     <widget class="QWidget" name="widget_2" native="true">
      <layout class="QHBoxLayout" name="horizontalLayout_7">
@@ -54,7 +75,33 @@
           <widget class="QWidget" name="widget_12" native="true">
            <layout class="QHBoxLayout" name="horizontalLayout_12">
             <item>
-             <widget class="QListWidget" name="listWidgetAddress"/>
+             <widget class="QListWidget" name="listWidgetAddress">
+              <property name="styleSheet">
+               <string notr="true">QListView {
+	
+	/* 行与行之间交替颜色不同 */
+	/* setAlternatingRowColors(true); */
+	alternate-background-color:yellow;
+	
+	/* 设置是否选中时,整行都高亮显示 */
+	show-decoration-selected:1;
+}
+
+QListView::item:alternate {
+	background:#EEEEEE;
+}
+
+/* 当条目被选中,并且不是有效的 */
+QListView::item::selected {
+	background:#696969;
+}
+
+/* 鼠标县浮在条目上 */
+QListView::item::hover {
+	background:#696969;
+}</string>
+              </property>
+             </widget>
             </item>
            </layout>
           </widget>
@@ -67,6 +114,9 @@
    </item>
    <item>
     <widget class="QWidget" name="widget_7" native="true">
+     <property name="styleSheet">
+      <string notr="true"/>
+     </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
        <widget class="QWidget" name="widget" native="true">
@@ -135,6 +185,11 @@
                </item>
                <item>
                 <widget class="QComboBox" name="comboBoxGender">
+                 <property name="styleSheet">
+                  <string notr="true">*{
+	background-color: rgb(238, 238, 236);
+}</string>
+                 </property>
                  <item>
                   <property name="text">
                    <string>男</string>
@@ -209,6 +264,58 @@
       </item>
       <item>
        <widget class="QWidget" name="widget_9" native="true">
+        <property name="styleSheet">
+         <string notr="true">QPushButton
+{  
+    /* 前景色 */  
+    color:black;  
+ 
+    /* 背景色 */  
+	background-color: rgb(238, 238, 236);
+
+ 
+    /* 边框风格 */  
+    border-style:outset; 
+
+    /* 字体 */  
+    font:bold 14px;  
+ 
+    /* 控件最小宽度 */  
+    min-width:60px;  
+
+    /* 控件最小高度 */  
+    min-height:20px;  
+ 
+    /* 内边距 */  
+    padding:2px;  
+} 
+ 
+/* 鼠标按下时的效果 */ 
+QPushButton:pressed 
+{  
+    /* 改变背景色 */  
+    background-color:rgb(40,85,20);  
+}
+ 
+/* 按钮样式 */ 
+QPushButton:flat 
+{  
+    border:2px solid red;  
+} 
+
+QPushButton:!enabled{
+	backfround-color:rgb(40,40,40);
+}
+
+/*鼠标悬浮时的效果*/
+QPushButton:hover
+{
+    color:#DCB;
+    /* 边框风格 */  
+    background-color:rgb(110, 105, 105); /*改变背景色*/
+}
+</string>
+        </property>
         <layout class="QHBoxLayout" name="horizontalLayout_8">
          <item>
           <widget class="QPushButton" name="pushButtonAdd">
