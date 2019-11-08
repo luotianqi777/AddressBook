@@ -1,8 +1,9 @@
-\documentclass{exam}
+\documentclass[answers]{exam}
 \usepackage{ctex}
 \usepackage{underlin}
 \usepackage[left=1.25in,right=1.25in,top=1in,bottom=1in]{geometry}
 \usepackage{graphicx}
+\renewcommand{\solutiontitle}{\noindent\textbf{参考答案：}}
 
 \title{软件工程复习题}
 \author{编辑人:LTQ}
@@ -12,7 +13,7 @@
 \maketitle
 \section{单选题}
 \begin{questions}
-	\question 软件开发的结构化设计(SD)方法，权标知道模块划分的最重要原则应该是()。\\
+	\question 软件开发的结构化设计(SD)方法，全面指导模块划分的最重要原则应该是()。\\
 	\begin{oneparchoices}
 		\choice 模块高内聚
 		\choice 模块高耦合
@@ -47,7 +48,7 @@
 		\choice 程序编码
 		\choice 软件计划
 	\end{oneparchoices}
-	\question 软件工程方法是在时间中不断发展的方法，而早起的团建工程方法主要是指?()\\
+	\question 软件工程方法是在时间中不断发展的方法，而早期的软件工程方法主要是指?()\\
 	\begin{oneparchoices}
 		\choice 原型化方法
 		\correctchoice 结构化方法
@@ -271,6 +272,7 @@
 		\correctchoice 外部文件结构
 		\choice 处理过程描述
 	\end{oneparchoices}
+\clearpage
 	\question 需求分析的主要任务是()\\
 	\begin{oneparchoices}
 		\choice 确定软件系统的主要功能，即进行系统功能分析，提出软件系统的目标、范围与功能说明\\
@@ -369,6 +371,7 @@
 		\choice 概要设计
 		\correctchoice 详细设计
 	\end{oneparchoices}
+\clearpage
 	\question 为了提高测试的效率，应该()\\
 	\begin{oneparchoices}
 		\choice 随机地选取测试数据\\
@@ -537,6 +540,7 @@
 		\choice 数据
 		\choice 模块间判断
 	\end{oneparchoices}
+\clearpage
 	\question 下列叙述中不是关于有利于软件可维护性的描述是()\\
 	\begin{oneparchoices}
 		\choice 在进行需求分析时应考虑维护问题\\
@@ -666,7 +670,7 @@
 	\question 使用表示结构化控制结构的问题分析图(PAD)符号所设计出来的程序()\\
 	\begin{oneparchoices}
 		\correctchoice 必然是结构化程序
-		\choice 一般不是结构化程序
+		\choice 一般不是结构化程序\\
 		\choice 一般是结构化程序
 		\choice 绝对不是结构化程序
 	\end{oneparchoices}
@@ -713,19 +717,30 @@
 		\correctchoice 问题定义
 	\end{oneparchoices}
 \end{questions}
-\section{简答题}
-\begin{enumerate}
-	\item 如何理解模块独立性？衡量模块独立性的两个标准是什么？它们各表示什么含义？
-	\item 什么是黑盒测试？黑盒测试的方法有哪些？
-	\item 什么是软件维护？软件维护有哪几种类型？
-	\item 什么是需求分析？需求分析阶段的基本任务是什么？
-	\item 为什么软件需要维护？简述软件维护的过程。
-\end{enumerate}
 \clearpage
-\centering
-\begin{tabular}{cc}
-	\includegraphics{help.png}
-	\includegraphics[scale=0.5]{pay.jpeg}
-\end{tabular}
+\section{简答题}
+\begin{questions}
+	\question 如何理解模块独立性？衡量模块独立性的两个标准是什么？它们各表示什么含义？
+	\begin{solution}
+		模块的独立性是指软件系统中的每个模块只涉及软件要求的具体的子功能，而与软件系统中其他模块的接口是简单的，符合信息隐蔽和信息局部化原则，模块间关联和依赖程度尽可能小。 衡量模块独立性的标准是耦合和内聚。 耦合是程序结构中各个模块之间相互关联的度量，内聚是一个模块内部各个元素彼此结合的紧密程度的度量。
+	\end{solution}
+	\question 什么是黑盒测试？黑盒测试的方法有哪些？
+	\begin{solution}
+		黑盒测试：把测试对象看做一个黑盒子，测试人员完全不考虑程序内部的逻辑结构和内部特性，只依据程序的需求规格说明书，检查程序的功能是否符合它的功能说明。 主要方法：等价划分、边界值分析、错误推测、因果图。
+	\end{solution}
+	\question 什么是软件维护？软件维护有哪几种类型？
+	\begin{solution}
+		软件维护：就是在软件已经交付使用之后，为了改正错误或满足新的需要而修改软件的过程。 分类：改正性维护、适应性维护、完善性维护、预防性维护。
+	\end{solution}
+	\question 什么是需求分析？需求分析阶段的基本任务是什么？
+	\begin{solution}
+		需求分析：开发人员准确理解客户的需求，进行细致的调查分析，将用户非形式的需求陈述转化为完整的需求定义，再由需求定义转化到相应的形式功能规约的过程。 任务：准确地回答``系统必须做什么''，刻画软件的功能和性能，确定软件与其他系统元素的接口，并建立软件必须满足的约束。
+	\end{solution}
+	\question 为什么软件需要维护？简述软件维护的过程。
+	\begin{solution}
+		软件在运行中可能由于多方面的原因需要对它进行修改，其原因可能有：运行中发现了软件中的错误需要改正；为了适应变化了的软件工作环境需要做适当变更；为了增强软件的功能需做变更等。即为了保证软件在一个相当长的时期内能正常运行，则需要维护。 过程：建立维护组织； 编写维护报告； 维护的事件流。先确认维护要求，再由维护组织管理员确认维护类型，进而问题分析，进行维护实施工作，最后将修改后的软件进行评审； 记录维护档案； 评价维护活动。
+	\end{solution}
+\end{questions}
+\footnotetext{简答题答案提供:SZH}
 
 \end{document}
